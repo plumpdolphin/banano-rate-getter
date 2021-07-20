@@ -1,4 +1,4 @@
-# banano-rate-tool
+# Banano Rate Getter (BRG)
 ### An open-source python tool for getting exchange rates.
 
 This project allows you to easily scrape various Banano/Nano exchange websites to grab the price.
