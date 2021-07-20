@@ -29,9 +29,12 @@ myInstance = Kuyumcu()
 Now you are ready to use the two price functions!
 The all exchange classes have three functions: <i>purchase_price()</i>, <i>sell_price()</i>, and <i>invert_pair</i>.
 
-The purchase_price() function gives the cost to purchase 1 BAN in NANO.
-The sell_price() function gives the amount of NANO you receive for 1 BAN.
-The invert_pair() function swaps the currency pair; if it's BAN per NANO, it swaps to NANO per BAN, and visa versa.
+<ul>
+  <li>purchase_price() function gives the cost to purchase 1 BAN in NANO.
+  <li>sell_price() function gives the amount of NANO you receive for 1 BAN.
+  <li>invert_pair() function swaps the currency pair; if it's BAN per NANO, it swaps to NANO per BAN, and visa versa.
+</ul>
+
 invert_pair() is a static function, and can be used without an instance.
 
 Here's how you can use them:
