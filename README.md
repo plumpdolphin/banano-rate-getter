@@ -46,3 +46,8 @@ ban_per_nano_price = Kuyumcu.invert_pair(buy_price)
 ```
 
 And that's all there is too it!
+
+
+Donation addresses:
+Nano - nano_1uer3koohtq454q9gfhpjb433inc61o68cj6k57sjnszwpy93761n841uurt
+Banano - ban_3apgw4axsp8s5kocas6o7gqfeihih9m7bcr8xhwh89kih5hea55bgqo1tdkc
