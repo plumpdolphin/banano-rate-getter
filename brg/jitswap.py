@@ -1,51 +1,29 @@
 import re
-import requests
-from bs4 import BeautifulSoup
+
+from .brg import BananoRateGetter
 
 
-# Shared variables
-exp = re.compile('BAN/NANO rate: ([\w.]*) NANO')
-url = 'https://jitswap.com/swap/BAN/to/NANO'
+class JitSwap(BananoRateGetter):
+    def __init__(self):
+        super().__init__()
 
-# Converts price innerHTML to float price in NANO per BAN
-def price_float(text):
-    # Extract price string from input
-    match = exp.match(text)
-    print(match)
+        # Shared variables
+        self.buy_url = 'https://jitswap.com/swap/NANO/to/BAN'
+        self.sell_url = 'https://jitswap.com/swap/BAN/to/NANO'
+    
+        # CSS selector for HTML element
+        self.buy_selector = '#withValue'
+        self.sell_selector = '#withValue'
 
-    # Convert text to float
-    str = match.group(1)
-    return float(str)
+        # Expression for separating the price text
+        self.exp = re.compile('([\w.]*)')
+    
+    # Inverts from BAN/NANO to NANO/BAN
+    def purchase_price(self):
+        price = super().purchase_price()
+        return super().invert_pair(price)
 
-
-# Invert NANO/BAN to BAN/NANO
-def nano_to_banano(a):
-    if a == 0:
-        return -1
-    return( 1 / a )
-
-
-# Gets buy price of BAN in NANO
-def buy_banano():
-    # Get text response from Kuyumcu
-    response = requests.get(url)
-    print(response.text)
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    # Return price from SellPrice element
-    price = soup.select('.small')[0]
-    print (price.text)
-    return price_float(price.text)
-
-
-# Gets sell price of BAN in NANO
-def sell_banano():
-    # Get text response from Kuyumcu
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    # Return price from BuyPrice element
-    price = soup.select('small.BuyPrice')[0]
-    return price_float(price.text)
-
-print(buy_banano())
+    # Adjusts rate by the default 200 BAN trade
+    def sell_price(self):
+        price = super().sell_price() 
+        return (price / 200)

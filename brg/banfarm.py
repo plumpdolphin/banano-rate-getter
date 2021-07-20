@@ -2,6 +2,9 @@ import re
 
 from .brg import BananoRateGetter
 
+### WARNING NOT FUNCTIONAL ###
+# TODO Needs to render JavaScript to the DOM before it can be parsed.
+
 
 class BanFarm(BananoRateGetter):
     def __init__(self):
@@ -11,10 +14,9 @@ class BanFarm(BananoRateGetter):
         self.buy_url = 'https://ban.farm/'
         self.sell_url = 'https://ban.farm/'
     
-        # Yes, I am aware this looks very backwards. I didn't design the site.
-        # Don't ask me why they made the classes this way
-        self.buy_selector = 'app-price div.price p b'
-        self.sell_selector = 'app-price div.price p b:nth-of-type(2)'
+        # CSS selector for HTML element
+        self.buy_selector = '.price p b'
+        self.sell_selector = '.price p b:nth-child(2)'
 
         # Expression for separating the price text
         self.exp = re.compile('([\w.]*)')

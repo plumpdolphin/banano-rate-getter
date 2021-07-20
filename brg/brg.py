@@ -37,7 +37,7 @@ class BananoRateGetter:
             return self.invert_pair(price)
         return price
 
-    # Converts price innerHTML to float price in NANO per BAN
+    # Converts price innerHTML to floating-point number
     def price_float(self, text):
         # Extract price string from input
         match = self.exp.match(text)
