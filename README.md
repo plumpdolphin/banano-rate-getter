@@ -2,11 +2,11 @@
 ### An open-source python tool for getting exchange rates.
 
 This project allows you to easily scrape various Banano/Nano exchange websites to grab the price.
-In order to use this module, you will need to install the python requests package.
+In order to use this module, you will need to install the python requests_html package.
 
 You can do so with this command:
 ```
-pip install requests
+pip install requests_html
 ```
 
 Then, just copy the <b>/brg</b> folder into your project, and you can start getting exchange prices!
