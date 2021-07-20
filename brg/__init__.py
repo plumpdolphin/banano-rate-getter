@@ -1,4 +1,5 @@
 import re
+import time
 
 from .rhh import HTMLSession
 
@@ -11,6 +12,7 @@ class BananoRateGetter:
     # Get the HTML of the website from the internet
     def get_url(self, url):
         self.response = self.session.get(url)
+        self.render_session()
 
     # Executes Javascript to dynamically load webpage
     def render_session(self):
@@ -18,17 +20,18 @@ class BananoRateGetter:
 
     # Return HTML element from DOM
     def get_element(self, selector):
-        element = self.response.html.find(selector, first=True)
-        if (element is None):
-            self.render_session()
-            element = self.response.html.find(selector, first=True)
-        return element
+        return self.response.html.find(selector, first=True)
+
+    # Return data from HTML element
+    @staticmethod
+    def get_element_text(element):
+        return element.text
 
     # Returns the current buying price for the exchange
     def purchase_price(self):
         self.get_url(self.buy_url)
         element = self.get_element(self.buy_selector)
-        price = self.price_float(element.text)
+        price = self.price_float(self.get_element_text(element))
 
         if (self.inverse):
             return self.invert_pair(price)
@@ -38,7 +41,7 @@ class BananoRateGetter:
     def sell_price(self):
         self.get_url(self.sell_url)
         element = self.get_element(self.sell_selector)
-        price = self.price_float(element.text)
+        price = self.price_float(self.get_element_text(element))
         
         if (self.inverse):
             return self.invert_pair(price)

@@ -1,25 +1,26 @@
 import re
+import time
 
 from . import BananoRateGetter
 
 ### WARNING NOT FUNCTIONAL ###
-# TODO Needs to render JavaScript to the DOM before it can be parsed.
+# TODO Renders Javascript, but needs to wait for async JSON response from XHR
 
 
 class BanFarm(BananoRateGetter):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inverse_pair=False):
+        super().__init__(inverse_pair=inverse_pair)
 
         # Shared variables
         self.buy_url = 'https://ban.farm/'
         self.sell_url = 'https://ban.farm/'
     
         # CSS selector for HTML element
-        self.buy_selector = '.price p b'
-        self.sell_selector = '.price p b:nth-child(2)'
+        self.buy_selector = '.price p'
+        self.sell_selector = '.price p'
 
         # Expression for separating the price text
-        self.exp = re.compile('([\w.]*)')
+        self.exp = re.compile('Buy ([\w.]*) ')
     
     # Invert price pairs to standard NANO/BAN pair
     def purchase_price(self):

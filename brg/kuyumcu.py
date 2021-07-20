@@ -4,8 +4,8 @@ from . import BananoRateGetter
 
 
 class Kuyumcu(BananoRateGetter):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inverse_pair=False):
+        super().__init__(inverse_pair=inverse_pair)
 
         # Shared variables
         self.buy_url = 'https://banano.nano.trade/'
@@ -18,3 +18,7 @@ class Kuyumcu(BananoRateGetter):
 
         # Expression for separating the price text
         self.exp = re.compile('@ ([\w.]*)')
+
+    # Pass on Javascript rendering
+    def render_session(self):
+        pass

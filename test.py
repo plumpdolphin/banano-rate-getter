@@ -4,8 +4,8 @@ from brg.jitswap import JitSwap
 from brg.bananoexchange import BananoExchange
 
 
-exchanges = [Kuyumcu(),
-             JitSwap()]
+exchanges = [Kuyumcu(inverse_pair=True),
+             JitSwap(inverse_pair=True)]
 
 for get in exchanges:
     bprice = get.purchase_price()

@@ -3,12 +3,12 @@ import re
 from . import BananoRateGetter
 
 ### WARNING NOT FUNCTIONAL ###
-# TODO Needs to render JavaScript to the DOM before it can be parsed.
+# TODO Renders Javascript, but needs to wait for async JSON response from XHR
 
 
 class BananoExchange(BananoRateGetter):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inverse_pair=False):
+        super().__init__(inverse_pair=inverse_pair)
 
         # Shared variables
         self.buy_url = 'https://banano.exchange/'
@@ -20,3 +20,7 @@ class BananoExchange(BananoRateGetter):
 
         # Expression for separating the price text
         self.exp = re.compile('([\w.]*)')
+
+    @staticmethod
+    def get_element_text(element):
+        return element.attrs['value']
