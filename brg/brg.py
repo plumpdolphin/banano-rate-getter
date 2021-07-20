@@ -1,14 +1,16 @@
 import re
 import requests
+
 from bs4 import BeautifulSoup
 
+
 class BananoRateGetter:
-    def __init__(self):
-        pass
+    def __init__(self, inverse_pair = False):
+        self.inverse = inverse_pair
 
     # Get the HTML of the website from the internet
-    def get_url(self):
-        self.response = requests.get(self.url)
+    def get_url(self, url):
+        self.response = requests.get(url)
         self.soup = BeautifulSoup(self.response.text, 'html.parser')
 
     # Return HTML element from DOM
@@ -17,12 +19,23 @@ class BananoRateGetter:
 
     # Returns the current buying price for the exchange
     def purchase_price(self):
-        self.get_url()
-        self.get_element(self.buy_selector)
+        self.get_url(self.buy_url)
+        element = self.get_element(self.buy_selector)
+        price = self.price_float(element.text)
+
+        if (self.inverse):
+            return self.invert_pair(price)
+        return price
 
     # Returns the current selling price for the exchange
     def sell_price(self):
-        pass
+        self.get_url(self.sell_url)
+        element = self.get_element(self.sell_selector)
+        price = self.price_float(element.text)
+        
+        if (self.inverse):
+            return self.invert_pair(price)
+        return price
 
     # Converts price innerHTML to float price in NANO per BAN
     def price_float(self, text):
@@ -34,7 +47,8 @@ class BananoRateGetter:
         return float(str)
 
     # Inverts trading pair, ie. from NANO/BAN to BAN/NANO
-    def invert_pair(self, a):
+    @staticmethod
+    def invert_pair(a):
         if a == 0:
             raise ZeroDivisionError
         return( 1 / a )
