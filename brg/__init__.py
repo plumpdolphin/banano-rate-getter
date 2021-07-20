@@ -1,21 +1,28 @@
-import os
 import re
 
-from selenium import webdriver
-from .driver_util import *
+from .rhh import HTMLSession
+
 
 class BananoRateGetter:
     def __init__(self, inverse_pair = False):
         self.inverse = inverse_pair
-        self.driver = get_driver()
+        self.session = HTMLSession()
 
     # Get the HTML of the website from the internet
     def get_url(self, url):
-        self.driver.get(self.driver, url=url)
+        self.response = self.session.get(url)
+
+    # Executes Javascript to dynamically load webpage
+    def render_session(self):
+        self.response.html.render()
 
     # Return HTML element from DOM
     def get_element(self, selector):
-        return self.driver.find_element_by_css_selector(selector)
+        element = self.response.html.find(selector, first=True)
+        if (element is None):
+            self.render_session()
+            element = self.response.html.find(selector, first=True)
+        return element
 
     # Returns the current buying price for the exchange
     def purchase_price(self):
