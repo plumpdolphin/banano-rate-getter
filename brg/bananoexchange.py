@@ -1,6 +1,6 @@
 import re
 
-from .brg import BananoRateGetter
+from . import BananoRateGetter
 
 ### WARNING NOT FUNCTIONAL ###
 # TODO Needs to render JavaScript to the DOM before it can be parsed.

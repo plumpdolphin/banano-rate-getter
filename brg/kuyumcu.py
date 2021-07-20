@@ -1,6 +1,6 @@
 import re
 
-from .brg import BananoRateGetter
+from . import BananoRateGetter
 
 
 class Kuyumcu(BananoRateGetter):
