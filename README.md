@@ -45,6 +45,14 @@ sell_price = myInstance.sell_price()
 ban_per_nano_price = Kuyumcu.invert_pair(buy_price)
 ```
 
+An alternative way to invert is by passing the inverse_pair parameter into the constructor of the instance, like this:
+
+```python
+myInstance = Kuyumcu(inverse_pair = True)
+```
+Now, all purchase_price and sell_price results will be returned in BAN/NANO instead of NANO/BAN!
+
+
 And that's all there is too it!
 
 
